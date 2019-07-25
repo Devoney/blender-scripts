@@ -12,4 +12,5 @@ Usage:
 2. Give the collections a meaningful name.
 3. Open Export.py and set the names of the collections in the variable called *collectionNames*.
 4. Set the desired levels of quality to export in the variable *qualityLevels*.
-5. Run the script in blender. A local subdirectory called *Export* will be created.
+5. Set the file types you wish to export in *exportFileTypes*, currently FBX, OBJ and STL are supported.
+6. Run the script in blender. A local subdirectory called *Export* will be created.

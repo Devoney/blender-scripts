@@ -9,6 +9,12 @@ class Quality(Enum):
     Medium = 1
     High = 2
     Ultra = 3
+
+exportDir = bpy.path.abspath("//Export\\")
+collectionNames = ['Model']
+# qualityLevels = [Quality.Low, Quality.Medium, Quality.High]    
+qualityLevels = [Quality.Low] 
+exportFileTypes = ['FBX', 'OBJ', 'STL']
     
 def hasSubdivisionModifier(obj):
     return 'Subdivision' in obj.modifiers
@@ -19,10 +25,20 @@ def ensure_dir(file_path):
 
 def dump(obj):
     pprint(getmembers(obj))
-
-collectionNames = ['MyCollection', 'Collection 3']
-exportDir = bpy.path.abspath("//Export\\")
-qualityLevels = [Quality.Low, Quality.Medium, Quality.High]    
+    
+def export(fileType, qualityLevel, collectionName):
+    exportDict = {
+        'FBX': bpy.ops.export_scene.fbx,
+        'OBJ': bpy.ops.export_scene.obj,
+        'STL': bpy.ops.export_mesh.stl
+    }
+    
+    exportPath = exportDir + collectionName + "\\" + fileType + "\\"
+    ensure_dir(exportPath)
+    qualityLevelExportPath = exportPath + "\\" + collectionName 
+    if qualityLevel != "default":
+        qualityLevelExportPath = qualityLevelExportPath + '_' + qualityLevel
+    exportDict[fileType](filepath=qualityLevelExportPath + '.' + fileType, use_selection=True)   
 
 for collectionName in collectionNames:
     objectsInCollection = bpy.data.collections[collectionName].objects
@@ -38,21 +54,9 @@ for collectionName in collectionNames:
 
                 if hasSubdivisionModifier(obj):
                     obj.modifiers['Subdivision'].levels = qualityLevel.value                    
-                    
-            exportPathStl = exportDir + collectionName + "\\STL\\"
-            ensure_dir(exportPathStl)
-            qualityLevelExportPathStl = exportPathStl + "\\" + collectionName 
-            if qualityLevelDesc != "default":
-                qualityLevelExportPathStl = qualityLevelExportPathStl + '_' + qualityLevelDesc
             
-            exportPathFbx = exportDir + collectionName + "\\FBX\\"
-            ensure_dir(exportPathFbx)
-            qualityLevelExportPathFbx = exportPathFbx + "\\" + collectionName
-            if qualityLevelDesc != "default":
-                qualityLevelExportPathFbx = qualityLevelExportPathFbx + '_' + qualityLevelDesc
-            
-            bpy.ops.export_mesh.stl(filepath=qualityLevelExportPathStl + '.stl', use_selection=True)
-            bpy.ops.export_scene.fbx(filepath=qualityLevelExportPathFbx + '.fbx', use_selection=True)
+            for exportFileType in exportFileTypes:        
+                export(exportFileType, qualityLevelDesc, collectionName)
             
             if qualityLevelDesc == "default":
                 break
