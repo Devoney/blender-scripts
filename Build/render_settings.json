@@ -1,0 +1,48 @@
+{
+  "default": [
+    {
+      "engine": "CYCLES",
+      "samples": 32,
+      "resolution": {
+        "x": 320,
+        "y": 240
+      }
+    }
+  ],
+  "Camera": [
+    {
+      "engine": "CYCLES",
+      "samples": 128,
+      "resolution": {
+        "x": 640,
+        "y": 480
+      }
+    },
+    {
+      "engine": "CYCLES",
+      "samples": 512,
+      "resolution": {
+        "x": 1920,
+        "y": 1080
+      }
+    }
+  ],
+  "Camera.001": [
+    {
+      "engine": "CYCLES",
+      "samples": 128,
+      "resolution": {
+        "x": 640,
+        "y": 480
+      }
+    },
+    {
+      "engine": "CYCLES",
+      "samples": 512,
+      "resolution": {
+        "x": 1920,
+        "y": 1080
+      }
+    }
+  ]
+}
