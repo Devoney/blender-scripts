@@ -4,6 +4,8 @@ Collection of scripts for Blender 2.8 of various purposes.
 ## Build
 ### Export.py
 
+[link](./Build/Export.py)
+
 Exports a collection of meshes/objects, with various levels of detail. The level of detail is altered by setting the levels of the subdivision modifier. If an object has none, this is skipped. If there are no objects with a subdvision modifier inside a collection, this step is skipped as well.
 For now STL and FBX is supported.
 
@@ -18,7 +20,9 @@ Usage:
 
 ### Render.py
 
+[link](./Build/Render.py)
+
 Renders all camera's in the scene. Multiple settings can be set per camera. If no setting for a camera is set the script will look for default settings. If no default settings are present, the camera is skipped. The settings file being looked for is called 'render_settings.json' in the same dir of the blend file.
 Renders are saved in a subdir relative to the blender file. Each rendered image gets a filename according to the following format: {camera.name}_{resolution.x}x{resolution.y}_s{samples}.png
 
-See the example 'render_settings.json'
+See the example [render_settings.json](./Build/render_settings.json)
