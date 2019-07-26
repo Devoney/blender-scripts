@@ -1,5 +1,5 @@
 # blender-scripts
-Collection of scripts for Blender of various purposes.
+Collection of scripts for Blender 2.8 of various purposes.
 
 ## Build
 ### Export.py
@@ -13,4 +13,4 @@ Usage:
 3. Open Export.py and set the names of the collections in the variable called *collectionNames*.
 4. Set the desired levels of quality to export in the variable *qualityLevels*.
 5. Set the file types you wish to export in *exportFileTypes*, currently FBX, OBJ and STL are supported.
-6. Run the script in blender. A local subdirectory called *Export* will be created.
+6. Run the script in blender. A local subdirectory called *Export* will be created. A subdirectory is created for each file type.
