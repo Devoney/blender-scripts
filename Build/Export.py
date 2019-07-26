@@ -10,11 +10,21 @@ class Quality(Enum):
     High = 2
     Ultra = 3
 
+class ExportTypes(Enum):
+    fbx = 0
+    obj = 1
+    stl = 2
+    x3d = 3
+
 exportDir = bpy.path.abspath("//Export\\")
 collectionNames = ['Model']
-# qualityLevels = [Quality.Low, Quality.Medium, Quality.High]    
-qualityLevels = [Quality.Low] 
-exportFileTypes = ['FBX', 'OBJ', 'STL']
+qualityLevels = [Quality.Low, Quality.Medium, Quality.High]    
+exportFileTypes = [
+    ExportTypes.fbx,
+    ExportTypes.obj, 
+    ExportTypes.stl,
+    ExportTypes.x3d
+]
     
 def hasSubdivisionModifier(obj):
     return 'Subdivision' in obj.modifiers
@@ -28,9 +38,10 @@ def dump(obj):
     
 def export(fileType, qualityLevel, collectionName):
     exportDict = {
-        'FBX': bpy.ops.export_scene.fbx,
-        'OBJ': bpy.ops.export_scene.obj,
-        'STL': bpy.ops.export_mesh.stl
+        ExportTypes.fbx: bpy.ops.export_scene.fbx,
+        ExportTypes.obj: bpy.ops.export_scene.obj,
+        ExportTypes.stl: bpy.ops.export_mesh.stl,
+        ExportTypes.x3d: bpy.ops.export_scene.x3d
     }
     
     exportPath = exportDir + collectionName + "\\" + fileType + "\\"
