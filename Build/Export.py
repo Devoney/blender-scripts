@@ -14,16 +14,19 @@ class ExportTypes(Enum):
     fbx = 0
     obj = 1
     stl = 2
-    x3d = 3
 
 exportDir = bpy.path.abspath("//Export\\")
-collectionNames = ['Model']
-qualityLevels = [Quality.Low, Quality.Medium, Quality.High]    
+collectionNames = ['Collection']
+qualityLevels = [
+    Quality.Low, 
+    Quality.Medium, 
+    Quality.High
+]    
+
 exportFileTypes = [
     ExportTypes.fbx,
     ExportTypes.obj, 
-    ExportTypes.stl,
-    ExportTypes.x3d
+    ExportTypes.stl
 ]
     
 def hasSubdivisionModifier(obj):
@@ -40,16 +43,15 @@ def export(fileType, qualityLevel, collectionName):
     exportDict = {
         ExportTypes.fbx: bpy.ops.export_scene.fbx,
         ExportTypes.obj: bpy.ops.export_scene.obj,
-        ExportTypes.stl: bpy.ops.export_mesh.stl,
-        ExportTypes.x3d: bpy.ops.export_scene.x3d
+        ExportTypes.stl: bpy.ops.export_mesh.stl
     }
     
-    exportPath = exportDir + collectionName + "\\" + fileType + "\\"
+    exportPath = exportDir + collectionName + "\\" + fileType.name + "\\"
     ensure_dir(exportPath)
     qualityLevelExportPath = exportPath + "\\" + collectionName 
     if qualityLevel != "default":
         qualityLevelExportPath = qualityLevelExportPath + '_' + qualityLevel
-    exportDict[fileType](filepath=qualityLevelExportPath + '.' + fileType, use_selection=True)   
+    exportDict[fileType](filepath=qualityLevelExportPath + '.' + fileType.name, use_selection=True)   
 
 for collectionName in collectionNames:
     objectsInCollection = bpy.data.collections[collectionName].objects
